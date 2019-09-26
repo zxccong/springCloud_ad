@@ -1,0 +1,30 @@
+server:
+  port: 7000
+  servlet:
+    context-path: /ad-sponsor
+
+spring:
+  application:
+    name: eureka-client-ad-sponsor
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none  #create 每次创建 create-drop开始创建，结束删除 update自动更新 validate验证
+    properties:
+      hibernate.format_sql: true    #对sql语句格式化
+    open-in-view: false             #是否懒加载 ，默认true
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/imooc_ad_data?autoReconnect=true #尝试重连
+    username: root
+    password: 123456
+    tomcat:
+      max-active: 4   #最大连接数
+      min-idle: 2      #最小连接数
+      initial-size: 2  #默认链接数
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://server1:8000/eureka/
+
+

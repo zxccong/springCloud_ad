@@ -1,0 +1,61 @@
+spring:
+  application:
+    name: ad-eureka
+
+server:
+  port: 8000
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    fetch-registry: false   #是否从eureka 获取注册信息
+    register-with-eureka: false #是否将自己注册到eureka
+    service-url:        #注册地址
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+---
+#spring:
+#  application:
+#    name: ad-eureka
+#  profiles: server1 #使用不同的配置文件，打包时使用不同的配置文件 mvn clean package -Dmaven.test.skip=true -U
+#server:             #打包不同的java -jar ad-eureka-1.0-SNAPSHOT.jar --spring.profiles.active=server1 ,会出现discovery发现异常
+#  port: 8000        #com.netflix.discovery.DiscoveryClient.getAndStoreFullRegistry(DiscoveryClient.java:1051)
+#eureka:
+#  instance:
+#    hostname: server1    #需要修改host文件配置 server1,server2,server3都是指向127.0.0.1
+#    prefer-ip-address: false  #是否从ip地址注册，因为都是配置127.0.0.1
+#  client:
+#    service-url:
+##      要配置三个节点的注册地址为另外连个的地址
+#      defaultZone: http://server2:8001/eureka/,http://server3:8002/eureka/
+#
+#---
+#spring:
+#  application:
+#    name: ad-eureka
+#  profiles: server2
+#server:
+#  port: 8001
+#eureka:
+#  instance:
+#    hostname: server2
+#    prefer-ip-address: false
+#  client:
+#    service-url:
+#      defaultZone: http://server1:8000/eureka/,http://server3:8002/eureka/
+#
+#---
+#spring:
+#  application:
+#    name: ad-eureka
+#  profiles: server3
+#server:
+#  port: 8002
+#eureka:
+#  instance:
+#    hostname: server3
+#    prefer-ip-address: false
+#  client:
+#    service-url:
+#      defaultZone: http://server1:8000/eureka/,http://server2:8001/eureka/
